@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .is-loading {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="root">
+
+        <ul>
+            <li v-for="name in names">{{ name }}</li>
+        </ul>
+
+        <input id="input" type="text" v-model="newName">
+        <button @click="addName" :title="title">Add Name</button>
+
+        <br>
+        <br>
+
+        <button @click="toggleClass" :class="{'is-loading': isLoading}">Toggle Class</button>
+
+        <br>
+        <br>
+
+        <button @click="toggleState">Toggle State</button>
+        <button :disabled="disabled">{{ buttonText }}</button>
+
+        <h1>
+            {{ reverseMessage }}
+        </h1>
+
+        <h1>All Tasks</h1>
+        <ul>
+            <li v-for="task in tasks" v-text="task.description"></li>
+        </ul>
+
+        <h1>Incomplete Tasks</h1>
+        <ul>
+            <li v-for="task in incompleteTasks" v-text="task.description"></li>
+        </ul>
+
+        <h1>Tasks</h1>
+        <ul>
+            <task>Go to the store</task>
+            <task>Go to the bank</task>
+            <task>Go to work</task>
+        </ul>
+
+        <h1>Task List</h1>
+        <task-list></task-list>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+    <script>
+        Vue.component('task-list', {
+
+            template: `
+                <ul>
+                    <task v-for="task in tasks">{{ task.task }}</task>
+                </ul>
+            `,
+
+            data() {
+                return {
+                    tasks: [
+                        { task: 'Go to the store', complete: true },
+                        { task: 'Go to the bank', complete: false },
+                        { task: 'Go to the farm', complete: true },
+                        { task: 'Go to work', complete: false },
+                    ]
+                }
+            }
+
+        })
+
+
+        Vue.component('task', {
+
+            template: '<li><slot></slot></li>'
+
+        })
+
+        var app = new Vue({
+            el: '#root',
+            data: {
+                names: ['Cobb', 'Arthur', 'Eames', 'Ariadne'],
+                newName: '',
+                title: 'Add a new name',
+                isLoading: false,
+                disabled: true,
+                buttonText: 'Disabled',
+                message: 'Hello World',
+                tasks: [
+                    { description: 'Go to the store', completed: true },
+                    { description: 'Finish screencast', completed: false },
+                    { description: 'Make donation', completed: false },
+                    { description: 'Clear inbox', completed: false },
+                    { description: 'Make dinner', completed: false },
+                    { description: 'Clean room', completed: true }
+                ]
+            },
+            computed: {
+                reverseMessage() {
+                    return this.message.split('').reverse().join('')
+                },
+                incompleteTasks() {
+                    return this.tasks.filter(task => !task.completed)
+                }
+            },
+            methods: {
+                addName() {
+                    this.names.push(this.newName)
+                    this.newName = ''
+                },
+                toggleClass() {
+                    this.isLoading = !this.isLoading
+                },
+                toggleState() {
+                    this.disabled = !this.disabled
+                    this.buttonText = this.disabled ? 'Disabled' : 'Enabled'
+                }
+            }
+        })
+
+    </script>
+</body>
+</html>
