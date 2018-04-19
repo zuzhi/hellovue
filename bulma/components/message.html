@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>Message</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.6.2/css/bulma.css"/>
+    <style>
+      .container {
+        padding: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" class="container">
+      <message title="Hello World" body="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt reiciendis maiores doloremque pariatur, quos incidunt fugiat similique aspernatur delectus tempora illo eius? Animi pariatur delectus inventore nobis eos velit earum."></message>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+      Vue.component('message', {
+        props: ['title', 'body'],
+        data() {
+          return {
+            isVisible: true
+          }
+        },
+        template: `
+          <article class="message" v-show="isVisible">
+            <div class="message-header">
+              <p>{{ title }}</p>
+              <button class="delete" aria-label="delete" @click="isVisible = false"></button>
+            </div>
+            <div class="message-body">
+              {{ body }}
+            </div>
+          </article>
+        `
+      })
+
+      new Vue({
+        el: '#root'
+      })
+    </script>
+  </body>
+</html>
