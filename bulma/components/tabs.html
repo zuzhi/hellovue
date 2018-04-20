@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Tabs</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.6.2/css/bulma.css"/>
+    <style>
+      .container {
+        padding: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" class="container">
+      <tabs>
+        <tab name="Pictures" :selected="true">
+          <h1>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam fugiat cumque aut atque exercitationem doloribus voluptatem neque, ratione, consequuntur, molestiae ut nostrum! Ex magnam blanditiis nisi consequatur inventore culpa dolore.</h1>
+        </tab>
+        <tab name="Music">
+          <h1>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis mollitia enim, sequi architecto tempora nesciunt impedit id at suscipit consectetur eligendi repudiandae expedita tempore consequatur sed aut, distinctio, saepe in.</h1>
+        </tab>
+        <tab name="Videos">
+          <h1>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci ut aliquid quia qui! Sint vel perferendis, quas dolor reprehenderit labore beatae voluptatem ipsum et culpa asperiores ipsam doloremque omnis nisi!</h1>
+        </tab>
+        <tab name="Documents">
+          <h1>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam amet minima impedit, sapiente non excepturi placeat ex ratione deleniti perspiciatis doloremque facilis voluptatum delectus. Commodi similique dolorum minus blanditiis soluta.</h1>
+        </tab>
+      </tabs>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+      // tabs
+      Vue.component('tabs', {
+        template: `
+          <div>
+            <div class="tabs is-small">
+              <ul>
+                <li v-for="tab in tabs" :class="{ 'is-active': tab.isActive }">
+                  <a :href="tab.href" @click="selectedTab(tab)">{{ tab.name }}</a>
+                </li>
+              </ul>
+            </div>
+            <div class="tabs-details">
+              <slot></slot>
+            </div>
+          </div>
+        `,
+        data() {
+          return {
+            tabs: []
+          }
+        },
+        created() {
+          this.tabs = this.$children
+        },
+        methods: {
+          selectedTab(selectedTab) {
+            this.tabs.forEach(tab => {
+              tab.isActive = (tab.name == selectedTab.name)
+            })
+          }
+        }
+      })
+
+      // tab
+      Vue.component('tab', {
+        template: `
+          <div v-show="isActive"><slot></slot></div>
+        `,
+        props: {
+          name: { required: true },
+          selected: { default: false }
+        },
+        data() {
+          return {
+            isActive: false
+          }
+        },
+        computed: {
+          href() {
+            return '#' + this.name.toLowerCase().replace(/ /g, '-')
+          }
+        },
+        mounted() {
+          this.isActive = this.selected
+        }
+      })
+
+      new Vue({
+        el: '#root'
+      })
+    </script>
+  </body>
+</html>
