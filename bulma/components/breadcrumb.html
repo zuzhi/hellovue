@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Breadcrumb</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.6.2/css/bulma.css"/>
+    <style>
+      .container {
+        padding: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" class="container">
+      <breadcrumb></breadcrumb>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+      Vue.component('breadcrumb', {
+        data() {
+          return {
+            breadcrumbs: ['Bulma', 'Documentation', 'Components', 'Breadcrumb']
+          }
+        },
+        computed: {
+          lastItem() {
+            return this.breadcrumbs[this.breadcrumbs.length - 1]
+          }
+        },
+        template: `
+          <nav class="breadcrumb" aria-label="breadcrumbs">
+            <ul>
+              <li v-for="item in breadcrumbs" :class="{ 'is-active': item == lastItem }">
+                <a href="#" :aria-current="item == lastItem ? 'page' : null">{{ item }}</a>
+              </li>
+            </ul>
+          </nav>
+        `
+      })
+
+      new Vue({
+        el: '#root'
+      })
+    </script>
+  </body>
+</html>
