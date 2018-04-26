@@ -13,12 +13,28 @@
   </head>
   <body>
     <div id="root" class="container">
-      <message title="Hello World" body="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt reiciendis maiores doloremque pariatur, quos incidunt fugiat similique aspernatur delectus tempora illo eius? Animi pariatur delectus inventore nobis eos velit earum."></message>
+      <header>
+        <h1 class="title">Message</h1>
+        <p class="subtitle">Colored <b>message</b> blocks, to emphasize part of your page</p>
+      </header>
+      <hr>
+      <!-- Basic message -->
+      <section>
+        <header>
+          <h3 class="title">Basic message</h3>
+          <p class="subtitle">&nbsp;&nbsp;&nbsp;</p>
+        </header>
+        <div class="example">
+          <message title="Basic">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt reiciendis maiores doloremque pariatur, quos incidunt fugiat similique aspernatur delectus tempora illo eius? Animi pariatur delectus inventore nobis eos velit earum.</p>
+          </message>
+        </div>
+      </section>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
     <script>
       Vue.component('message', {
-        props: ['title', 'body'],
+        props: ['title'],
         data() {
           return {
             isVisible: true
@@ -31,7 +47,7 @@
               <button class="delete" aria-label="delete" @click="isVisible = false"></button>
             </div>
             <div class="message-body">
-              {{ body }}
+              <slot></slot>
             </div>
           </article>
         `
