@@ -104,9 +104,52 @@ Vue.component('tab', {
 })
 
 
+// coupon
+Vue.component('coupon', {
+
+    template: `
+        <input type="text" placeholder="Enter your coupon code" @blur="onCouponApplied" />
+    `,
+    methods: {
+        onCouponApplied() {
+            this.$emit('applied')
+        }
+    }
+
+})
+
+window.Event = new Vue()
+// coupon2
+Vue.component('coupon2', {
+
+    template: `
+        <input type="text" placeholder="Enter your coupon code" @blur="onCoupon2Applied" />
+    `,
+    methods: {
+        onCoupon2Applied() {
+            Event.$emit('applied2')
+        }
+    }
+
+})
+
 let app = new Vue({
     el: '#root',
     data: {
-        showModal: false
+        showModal: false,
+        couponApplied: false,
+        coupon2Applied: false
+    },
+    methods: {
+        onCouponApplied() {
+            // alert("It was applied!")
+            this.couponApplied = true
+        }
+    },
+    created() {
+        Event.$on('applied2', () => {
+            // alert('Handling it!')
+            this.coupon2Applied = true
+        })
     }
 })

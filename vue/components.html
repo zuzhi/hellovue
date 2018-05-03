@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.6.2/css/bulma.css" />
+    <style>
+        .container {
+            padding: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="root" class="container">
+        <section>
+            <header>
+                <h3 class="title">Tabs</h3>
+            </header>
+            <hr>
+            <div class="main">
+                <tabs>
+                    <tab name="About Us" :selected="true">
+                        <h1>Here is the content for the about us tab.</h1>
+                    </tab>
+                    <tab name="About Our Culture">
+                        <h1>Here is the content for the about our culture tab.</h1>
+                    </tab>
+                    <tab name="About Our Vision">
+                        <h1>Here is the content for the about our vision tab.</h1>
+                    </tab>
+                </tabs>
+            </div>
+        </section>
+        <br>
+        <section>
+            <header>
+                <h3 class="title">Message</h3>
+            </header>
+            <hr>
+            <div class="main">
+                <message title="Hello World" body="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur tempore quaerat blanditiis, aperiam ipsa numquam inventore ipsam, atque possimus cum deserunt iure doloribus temporibus ad officia aut totam nostrum vel."></message>
+                <message title="Hello Universe" body="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, quas soluta libero sequi sit mollitia at tempora ipsum nostrum. Molestiae omnis quis, error numquam illo laboriosam repellendus harum incidunt beatae?"></message>
+            </div>
+        </section>
+        <br>
+        <section>
+            <header>
+                <h3 class="title">Modal</h3>
+            </header>
+            <hr>
+            <div class="main">
+                <modal v-if="showModal" @close="showModal = false">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis culpa recusandae sapiente magni maiores impedit esse ea itaque, alias numquam soluta ratione, exercitationem sit voluptate reiciendis a qui temporibus animi! </p>
+                </modal>
+                <button class="button" @click="showModal = true">Launch modal</button>
+            </div>
+        </section>
+        <br>
+        <section>
+            <header>
+                <h3 class="title">Coupon</h3>
+                <p class="subtitle">Component Communication, Example 1 - Custom Events</p>
+            </header>
+            <hr>
+            <div class="main">
+                <coupon @applied="onCouponApplied"></coupon>
+                <h1 v-if="couponApplied">You used a coupon!</h1>
+            </div>
+        </section>
+        <br>
+        <section>
+            <header>
+                <h3 class="title">Coupon2</h3>
+                <p class="subtitle">Component Communication, Example 2 - Event Dispatcher</p>
+            </header>
+            <hr>
+            <div class="main">
+                <coupon2 @applied2="onCoupon2Applied"></coupon2>
+                <h1 v-if="coupon2Applied">You used a coupon2!</h1>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
