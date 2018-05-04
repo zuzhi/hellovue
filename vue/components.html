@@ -9,17 +9,24 @@
         .container {
             padding: 40px;
         }
+        .block {
+            margin-bottom: 10px;
+        }
+        .block > header {
+            margin: 45px 0 0.8em;
+            padding-bottom: 0.7em;
+            border-bottom: 1px solid #ddd;
+        }
     </style>
 </head>
 <body>
 
     <div id="root" class="container">
-        <section>
+        <section class="block">
             <header>
                 <h3 class="title">Tabs</h3>
             </header>
-            <hr>
-            <div class="main">
+            <section>
                 <tabs>
                     <tab name="About Us" :selected="true">
                         <h1>Here is the content for the about us tab.</h1>
@@ -31,55 +38,64 @@
                         <h1>Here is the content for the about our vision tab.</h1>
                     </tab>
                 </tabs>
-            </div>
+            </section>
         </section>
-        <br>
-        <section>
+        <section class="block">
             <header>
                 <h3 class="title">Message</h3>
             </header>
-            <hr>
-            <div class="main">
+            <section>
                 <message title="Hello World" body="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur tempore quaerat blanditiis, aperiam ipsa numquam inventore ipsam, atque possimus cum deserunt iure doloribus temporibus ad officia aut totam nostrum vel."></message>
                 <message title="Hello Universe" body="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, quas soluta libero sequi sit mollitia at tempora ipsum nostrum. Molestiae omnis quis, error numquam illo laboriosam repellendus harum incidunt beatae?"></message>
-            </div>
+            </section>
         </section>
-        <br>
-        <section>
+        <section class="block">
             <header>
                 <h3 class="title">Modal</h3>
             </header>
-            <hr>
-            <div class="main">
+            <section>
                 <modal v-if="showModal" @close="showModal = false">
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis culpa recusandae sapiente magni maiores impedit esse ea itaque, alias numquam soluta ratione, exercitationem sit voluptate reiciendis a qui temporibus animi! </p>
                 </modal>
                 <button class="button" @click="showModal = true">Launch modal</button>
-            </div>
+            </section>
         </section>
-        <br>
-        <section>
+        <section class="block">
             <header>
                 <h3 class="title">Coupon</h3>
                 <p class="subtitle">Component Communication, Example 1 - Custom Events</p>
             </header>
-            <hr>
-            <div class="main">
+            <section>
                 <coupon @applied="onCouponApplied"></coupon>
                 <h1 v-if="couponApplied">You used a coupon!</h1>
-            </div>
+            </section>
         </section>
-        <br>
-        <section>
+        <section class="block">
             <header>
-                <h3 class="title">Coupon2</h3>
+                <h3 class="title">Coupon 2</h3>
                 <p class="subtitle">Component Communication, Example 2 - Event Dispatcher</p>
             </header>
-            <hr>
-            <div class="main">
-                <coupon2 @applied2="onCoupon2Applied"></coupon2>
+            <section>
+                <coupon2></coupon2>
                 <h1 v-if="coupon2Applied">You used a coupon2!</h1>
-            </div>
+            </section>
+        </section>
+        <section class="block">
+            <header>
+                <h3 class="title">Modal 2</h3>
+                <p class="subtitle">Named Slots In A Nutshell</p>
+            </header>
+            <section>
+                <modal2 v-show="showModal2" @close="showModal2 = false">
+                    <template slot="header">Anything for the header</template>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore numquam laudantium ullam distinctio voluptatum, saepe libero dignissimos illum fugit sint, iure unde rem, a accusamus blanditiis temporibus eius quo voluptate!</p>
+                    <template slot="footer">
+                        <button class="button is-success" @click="showModal2 = false">Save changes</button>
+                        <button class="button" @click="showModal2 = false">Cancel</button>
+                    </template>
+                </modal2>
+                <button class="button" @click="showModal2 = true">Launch modal2</button>
+            </section>
         </section>
     </div>
 
