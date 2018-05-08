@@ -56,26 +56,43 @@
         <h1>Task List</h1>
         <task-list></task-list>
 
+        <h1>Commits</h1>
+        <small>Data fetched from https://api.github.com/repos/zuzhi/hellovue/commits using Axios</small>
+        <table>
+            <thead>
+                <th>message</th>
+                <th>author</th>
+                <th>sha</th>
+            </thead>
+            <tbody>
+                <tr v-for="commit in commits">
+                    <td>{{ commit.commit.message }}</td>
+                    <td>{{ commit.commit.author.name }}</td>
+                    <td>{{ commit.sha }}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script>
         Vue.component('task-list', {
 
             template: `
                 <ul>
-                    <task v-for="task in tasks">{{ task.task }}</task>
+                    <task v-for="task in tasks" :key="task.id">{{ task.task }}</task>
                 </ul>
             `,
 
             data() {
                 return {
                     tasks: [
-                        { task: 'Go to the store', complete: true },
-                        { task: 'Go to the bank', complete: false },
-                        { task: 'Go to the farm', complete: true },
-                        { task: 'Go to work', complete: false },
+                        { id: 1, task: 'Go to the store', complete: true },
+                        { id: 2, task: 'Go to the bank', complete: false },
+                        { id: 3, task: 'Go to the farm', complete: true },
+                        { id: 4, task: 'Go to work', complete: false },
                     ]
                 }
             }
@@ -106,7 +123,8 @@
                     { description: 'Clear inbox', completed: false },
                     { description: 'Make dinner', completed: false },
                     { description: 'Clean room', completed: true }
-                ]
+                ],
+                commits: []
             },
             computed: {
                 reverseMessage() {
@@ -128,6 +146,14 @@
                     this.disabled = !this.disabled
                     this.buttonText = this.disabled ? 'Disabled' : 'Enabled'
                 }
+            },
+            mounted() {
+                // Make an ajax request to GitHub API
+                axios.get('https://api.github.com/repos/zuzhi/hellovue/commits').then(response => {
+                    if (response.status === 200) {
+                        this.commits = response.data
+                    }
+                })
             }
         })
 
