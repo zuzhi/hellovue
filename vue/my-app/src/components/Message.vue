@@ -1,10 +1,10 @@
 <template>
 
-    <div class="box">
-        <p>
+    <article class="message">
+        <div class="message-body">
             <slot></slot>
-        </p>
-    </div>
+        </div>
+    </article>
 
 </template>
 
@@ -17,12 +17,4 @@ export default {
 </script>
 
 <style>
-
-.box {
-    background: #e3e3e3;
-    padding: 10px;
-    border: 1px solid #c5c5c5;
-    margin-bottom: 1em;
-}
-
 </style>
