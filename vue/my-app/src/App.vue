@@ -108,17 +108,21 @@ class Form {
     for (let field in this.originalData) {
       this[field] = ''
     }
+
+    this.errors.clear()
   }
 
   data() {
-    let data = Object.assign({}, this)
-    delete data.originalData
-    delete data.errors
+    let data = {}
+
+    for (let property in this.originalData) {
+      data[property] = this[property]
+    }
 
     return data
   }
 
-  submit(requestType, url) {
+  post(url) {
     let requestConfig = {
       auth: {
         username: 'user',
@@ -126,19 +130,32 @@ class Form {
       }
     }
 
-    axios[requestType](url, this.data(), requestConfig)
-      .then(this.onSuccess.bind(this))
-      .catch(this.onFail.bind(this))
+    return this.submit('post', url, requestConfig)
   }
 
-  onSuccess() {
-    alert('Success')
-    this.errors.clear()
+  submit(requestType, url, requestConfig) {
+    return new Promise((resolve, reject) => {
+      axios[requestType](url, this.data(), requestConfig)
+        .then(response => {
+          this.onSuccess(response.data)
+
+          resolve(response.data)
+        })
+        .catch(error => {
+          this.onFail(error.response.data)
+
+          reject(error.response.data)
+        })
+    })
+  }
+
+  onSuccess(data) {
+    // alert('Success')
     this.reset()
   }
 
-  onFail(error) {
-    this.errors.record(error.response.data.errors)
+  onFail(errors) {
+    this.errors.record(errors.errors)
   }
 
 }
@@ -168,7 +185,9 @@ export default {
       })
     },
     onSubmit() {
-      this.form.submit('post', 'https://zuzhi-core-spring.herokuapp.com/api/v1/books')
+      this.form.post('https://zuzhi-core-spring.herokuapp.com/api/v1/books')
+        .then(data => this.refreshTable())
+        .catch(errors => console.log(errors))
     }
   }
 }
