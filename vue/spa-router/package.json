@@ -1,0 +1,21 @@
+{
+  "name": "spa-router",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "webpack": "webpack-cli --hide-modules --progress"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "axios": "^0.18.0",
+    "vue": "^2.5.16",
+    "vue-loader": "^15.0.11",
+    "vue-router": "^3.0.1",
+    "vue-template-compiler": "^2.5.16",
+    "webpack": "^4.8.3",
+    "webpack-cli": "^2.1.3"
+  }
+}
