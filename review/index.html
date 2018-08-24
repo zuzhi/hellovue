@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title></title>
+    <style>
+        .color-red {
+            color: red;
+        }
+
+        .is-loading {
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <h2>1. Data Binding with v-model</h2>
+        <input type="text" id="input" v-model="message">
+        <p>The value of the input is: {{ message }}.</p>
+
+        <h2>2. Lists with v-for</h2>
+        <ul>
+            <li v-for="name in names" v-text="name"></li>
+        </ul>
+
+        <h2>3. Event Listeners</h2>
+        <input type="text" v-model="newName">
+        <button @click="addName">Add Name</button>
+
+        <h2>4. Attribute and Class Name Binding</h2>
+        <button :title="title">Hover Over Me</button>
+        <p :class="className">Hello Vue</p>
+        <button :class="{ 'is-loading': isLoading }" @click="toggleClass">Toggle Me</button>
+
+        <h2>5. Computed Properties</h2>
+        <p>{{ reversedMessage }}</p>
+        <h4>All tasks</h4>
+        <ul>
+            <li v-for="task in tasks" v-text="task.description"></li>
+        </ul>
+        <h4>Incompleted tasks</h4>
+        <ul>
+            <li v-for="task in incompletedTasks" v-text="task.description"></li>
+        </ul>
+    </div>
+</body>
+
+    <script src="https://unpkg.com/vue@2.5.17/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#root',
+            data: {
+                message: 'Hello Vue',
+                names: ['Arthur', 'Ariadne', 'Cobb', 'Mal'],
+                newName: '',
+                title: 'The title is being set through Javascript.',
+                className: 'color-red',
+                isLoading: false,
+                tasks: [
+                    { description: 'Go to store', completed: false },
+                    { description: 'Finish screencast', completed: true },
+                    { description: 'Clear inbox', completed: false }
+                ]
+            },
+            mounted() {},
+            methods: {
+                addName() {
+                    this.names.push(this.newName);
+                    this.newName = '';
+                },
+                toggleClass() {
+                    this.isLoading = !this.isLoading;
+                }
+            },
+            computed: {
+                reversedMessage() {
+                    return this.message.split('').reverse().join('');
+                },
+                incompletedTasks() {
+                    return this.tasks.filter(task => !task.completed);
+                }
+            }
+        })
+    </script>
+</html>

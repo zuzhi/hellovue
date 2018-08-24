@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel="stylesheet" href="https://cdn.bootcss.com/bulma/0.7.1/css/bulma.css">
+  <style>
+    body { padding-top: 40px }
+  </style>
+</head>
+<body>
+  <div id="root" class="container">
+    <h2>1. Bulma Message</h2>
+    <article class="message">
+      <div class="message-header">
+        <p>Hello World</p>
+        <button class="delete" aria-label="delete"></button>
+      </div>
+      <div class="message-body">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum <a>felis venenatis</a> efficitur. Aenean ac <em>eleifend lacus</em>, in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.
+      </div>
+    </article>
+
+    <h2>2. Bulma Message as a vue component</h2>
+    <message title="Hello Vue" body="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id pariatur consequuntur maiores similique optio vero tenetur. Repellendus reiciendis vero, voluptates labore? Dignissimos quibusdam iusto modi velit dolorem fuga autem voluptatibus."></message>
+    <message title="Hello World" body="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio animi qui cupiditate incidunt temporibus doloribus rem corporis, natus placeat nihil asperiores aperiam! Quidem expedita assumenda dolorum, est dicta iste animi!"></message>
+
+    <h2>3. Bulma Modal as a vue component</h2>
+    <button @click="openModal">Open Modal</button>
+    <modal v-if="showModal" @close="showModal = false">
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam consequuntur, temporibus veritatis, facilis pariatur sunt ratione voluptate accusamus quos dolorem sit facere reprehenderit ducimus ipsum iste et necessitatibus! Cupiditate, sunt.
+      </p>
+    </modal>
+
+    <h2>4. Bulma Tab as a vue component</h2>
+    <tabs>
+      <tab name="About Us" :selected="true">
+        <h1>Here is the content of the about us tab.</h1>
+      </tab>
+      <tab name="About Our Culture">
+        <h1>Here is the content of the about our culture tab.</h1>
+      </tab>
+      <tab name="About Our Vision">
+        <h1>Here is the content of the about our vision tab.</h1>
+      </tab>
+    </tabs>
+  </div>
+
+  <script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.js"></script>
+  <script src="practical-component-exercises.js"></script>
+</body>
+</html>
