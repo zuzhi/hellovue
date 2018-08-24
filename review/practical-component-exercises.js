@@ -55,7 +55,7 @@ Vue.component('tabs', {
     }
   },
   created() {
-    this.tabs = this.$children
+    this.tabs = this.$children;
   },
   methods: {
     selectTab(selectedTab) {
@@ -64,7 +64,7 @@ Vue.component('tabs', {
       })
     }
   }
-})
+});
 
 
 Vue.component('tab', {
@@ -90,7 +90,7 @@ Vue.component('tab', {
       return '#' + this.name.toLowerCase().replace(/ /g, '-');
     }
   }
-})
+});
 
 
 new Vue({
@@ -103,4 +103,4 @@ new Vue({
       this.showModal = true;
     }
   }
-})
+});
